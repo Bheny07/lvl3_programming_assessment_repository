@@ -20,13 +20,13 @@ class AotearoaQuiz(object):
 
         # Create a frame for the score counter
         self.score_frame = tk.Frame(self.root)
-        self.score_frame.pack(anchor=tk.NW, padx=10, pady=10)
+        self.score_frame.pack(fill=tk.X)
 
         # Label to display correct answers
         self.correct_label = tk.Label(self.score_frame,
                                       text=f"Correct: {self.correct_answers}",
                                       font=("Arial", 10))
-        self.correct_label.pack(side=tk.LEFT)
+        self.correct_label.pack(side=tk.LEFT, padx=10, pady=5)
 
         # Separator
         separator = tk.Label(self.score_frame, text=" | ", font=("Arial", 10))
@@ -81,33 +81,33 @@ class AotearoaQuiz(object):
         button_configuration = {"width": 10, "height": 1, "font": ("Arial", 8)}
 
         # Approximate button positions relative to the image
-        self.create_map_button("Northland", 240, 50,
+        self.create_map_button("Northland", 240, 80,
                                **button_configuration)
-        self.create_map_button("Auckland", 265, 85,
+        self.create_map_button("Auckland", 265, 115,
                                **button_configuration)
-        self.create_map_button("Waikato", 270, 120,
+        self.create_map_button("Waikato", 270, 150,
                                **button_configuration)
-        self.create_map_button("Bay of Plenty", 400, 85,
+        self.create_map_button("Bay of Plenty", 400, 115,
                                **button_configuration)
-        self.create_map_button("Gisborne", 450, 135,
+        self.create_map_button("Gisborne", 450, 165,
                                **button_configuration)
-        self.create_map_button("Hawke's Bay", 420, 180,
+        self.create_map_button("Hawke's Bay", 420, 210,
                                **button_configuration)
-        self.create_map_button("Taranaki", 260, 155,
+        self.create_map_button("Taranaki", 260, 185,
                                **button_configuration)
-        self.create_map_button("Manawatu", 400, 210,
+        self.create_map_button("Manawatu", 400, 240,
                                **button_configuration)
-        self.create_map_button("Wellington", 380, 240,
+        self.create_map_button("Wellington", 380, 270,
                                **button_configuration)
-        self.create_map_button("Marlborough", 220, 200,
+        self.create_map_button("Marlborough", 220, 230,
                                **button_configuration)
-        self.create_map_button("West Coast", 190, 250,
+        self.create_map_button("West Coast", 190, 280,
                                **button_configuration)
-        self.create_map_button("Canterbury", 325, 280,
+        self.create_map_button("Canterbury", 325, 310,
                                **button_configuration)
-        self.create_map_button("Otago", 280, 350,
+        self.create_map_button("Otago", 280, 380,
                                **button_configuration)
-        self.create_map_button("Southland", 125, 310,
+        self.create_map_button("Southland", 125, 340,
                                **button_configuration)
 
     # Function to create buttons for different regions
