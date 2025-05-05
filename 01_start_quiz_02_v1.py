@@ -9,7 +9,7 @@ from tkinter import messagebox
 from PIL import Image, ImageTk
 
 
-# Class to display NZ map and region buttons
+# Class to display NZ map
 class AotearoaQuiz(object):
     def __init__(self, roots):
         self.root = roots
