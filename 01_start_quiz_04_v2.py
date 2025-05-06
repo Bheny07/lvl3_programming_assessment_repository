@@ -67,7 +67,7 @@ class AotearoaQuiz(object):
                 "HenyDice Logo Trans.png")
             self.logo_photo = ImageTk.PhotoImage(self.logo_image)
             self.logo_label = tk.Label(self.root, image=self.logo_photo)
-            self.logo_label.place(relx=1.0, rely=1.0, x=-10,  anchor='se')
+            self.logo_label.place(relx=1.0, rely=1.0, x=-10, anchor='se')
 
         except FileNotFoundError:
             messagebox.showwarning("Warning",
@@ -84,7 +84,7 @@ class AotearoaQuiz(object):
         else:
             self.incorrect_answers += 1
             self.incorrect_label.config(text=f"Correct:"
-                                           f"{self.incorrect_answers}")
+                                             f"{self.incorrect_answers}")
 
     # Function to put region buttons on the map
     def create_region_buttons_on_map(self):
