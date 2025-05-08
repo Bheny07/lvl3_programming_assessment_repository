@@ -1,5 +1,5 @@
 """02_questions will add the questions to the quiz. In this version
-02_questions_01, it will add a frame to hold questions, enter
+02_questions_02, it will add a frame to hold questions, enter
 answer and submit answers"""
 
 # Import tkinter and PIL
