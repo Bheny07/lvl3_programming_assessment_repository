@@ -194,7 +194,7 @@ class AotearoaQuiz(object):
             self.answer_entry.delete(0, tk.END)
             self.submit_button.config(state=tk.DISABLED)
             for name, button in self.region_buttons.items():
-                button.config(state=tk.NORMAL)  # Enable all region buttons
+                button.config(state=tk.NORMAL)
             self.current_region = None
 
 
