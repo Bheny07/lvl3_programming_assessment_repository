@@ -1,4 +1,4 @@
-"""02_questions will add the quesstions to the quiz. In this version
+"""02_questions will add the questions to the quiz. In this version
 02_questions_01, it will add a list into the class of the regions and
 the maori names for the region"""
 
