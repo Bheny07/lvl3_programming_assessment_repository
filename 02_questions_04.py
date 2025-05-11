@@ -6,7 +6,6 @@ answer to the question and will evaluate answer and update the score counter"""
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
-import random
 
 
 # Class to display map and region buttons
@@ -180,14 +179,8 @@ class AotearoaQuiz(object):
             user_answer = self.answer_entry.get().strip()
             correct_maori_names = self.regions[self.current_region]
             if user_answer in correct_maori_names:
-                messagebox.showinfo("Correct", "That is correct!")
                 self.update_score(True)
             else:
-                messagebox.showerror("Incorrect",
-                                     f"Sorry, that is incorrect. "
-                                     f"The Maori name for "
-                                     f"{self.current_region} is "
-                                     f"{random.choice(correct_maori_names)}.")
                 self.update_score(False)
 
             self.question_label.config(text="")
