@@ -1,7 +1,7 @@
 """02_questions will add the questions to the quiz. In this version
-02_questions_06, once the question for that region has been answered, it will
-lock the region and won't allow the user to attempt that region again until
-they play a new round."""
+02_questions_06_v1, once the question for that region has been answered, it
+will lock the region and won't allow the user to attempt that region again
+until they play a new round and highlight the region box grey."""
 
 # Import tkinter and PIL
 import tkinter as tk
