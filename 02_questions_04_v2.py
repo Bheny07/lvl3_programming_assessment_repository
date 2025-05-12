@@ -1,6 +1,7 @@
 """02_questions will add the questions to the quiz. In this version
-02_questions_05, it will let the user answer/submit will be an altered version
-and have an options box instead of a text box to answer questions"""
+02_questions_04_v2, it will let the user answer/submit will be an altered version
+and have an options instead of a text box to answer questions. Options will be
+randomly generated. 2 unique incorrect options"""
 
 # Import tkinter and PIL
 import tkinter as tk
@@ -173,7 +174,7 @@ class AotearoaQuiz(object):
                            in sublist]
 
         # Generate 3 unique incorrect options
-        while len(incorrect_options) < 3:
+        while len(incorrect_options) < 2:
             wrong_answer = random.choice(all_maori_names)
             if wrong_answer not in correct_maori_names:
                 incorrect_options.add(wrong_answer)
