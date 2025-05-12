@@ -67,20 +67,6 @@ class AotearoaQuiz(object):
                                      anchor=tk.NW)
         self.map_canvas.pack()
 
-        # Load the logo image
-        try:
-            self.logo_image = Image.open(
-                "HenyDice Logo Trans.png")
-            self.logo_photo = ImageTk.PhotoImage(self.logo_image)
-            self.logo_label = tk.Label(self.root, image=self.logo_photo)
-            self.logo_label.place(relx=1.0, rely=1.0, x=-10, anchor='se')
-
-        except FileNotFoundError:
-            messagebox.showwarning("Warning",
-                                   "Logo image not found!")
-
-        self.create_region_buttons_on_map()
-
         # Frame to hold questions, enter answer and submit answers
         self.question_frame = tk.Frame(self.root)
         self.question_frame.pack(pady=10)
@@ -108,6 +94,20 @@ class AotearoaQuiz(object):
             self.score_frame, text=f"Incorrect: {self.incorrect_answers}",
             font=("Arial", 10))
         self.incorrect_label.pack(side=tk.LEFT)
+
+        # Load the logo image
+        try:
+            self.logo_image = Image.open(
+                "HenyDice Logo Trans.png")
+            self.logo_photo = ImageTk.PhotoImage(self.logo_image)
+            self.logo_label = tk.Label(self.root, image=self.logo_photo)
+            self.logo_label.place(relx=1.0, rely=1.0, x=-10, anchor='se')
+
+        except FileNotFoundError:
+            messagebox.showwarning("Warning",
+                                   "Logo image not found!")
+
+        self.create_region_buttons_on_map()
 
     # Function to update the score counter
     def update_score(self, correct=True):
