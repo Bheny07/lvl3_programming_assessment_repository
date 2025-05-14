@@ -1,7 +1,8 @@
 """03_questions will display and end screen for user. It will let the user
 know the percentage of correct answers. It will also contain an export results
-button, play gain button and a close button. In this version, 03_02, will add
-a button allowing the user to play the quiz again."""
+button, play gain button and a close button. In this version, 03_02, will
+change the end user screen design to make it clearer and also add a button
+allowing the user to play the quiz again."""
 
 # Import tkinter and PIL
 import tkinter as tk
