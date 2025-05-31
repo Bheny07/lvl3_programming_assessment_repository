@@ -434,7 +434,7 @@ class AotearoaQuiz(object):
     def close_end_screen(self):
         if self.end_screen:
             self.end_screen.destroy()
-            self.end_screen = None
+        self.root.destroy()
 
 
 if __name__ == "__main__":
