@@ -18,6 +18,7 @@ class AotearoaQuiz(object):
         self.last_user_answer = None
         self.root = roots
         self.root.title("Aotearoa Names Quiz")
+        self.root.resizable(False, False)
 
         # Dictionary mapping regions to their Maori names
         self.regions = {
@@ -344,6 +345,7 @@ class AotearoaQuiz(object):
         if self.end_screen is None:
             self.end_screen = tk.Toplevel(self.root)
             self.end_screen.title("Quiz Finished")
+            self.end_screen.resizable(False, False)
 
             message_label = tk.Label(self.end_screen, text=final_score_message,
                                      font=("Arial", 10))
