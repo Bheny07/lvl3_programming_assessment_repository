@@ -1,21 +1,21 @@
-"""02_questions will add the questions to the quiz. In this version
-02_questions_06_v1, once the question for that region has been answered, it
-will lock the region and won't allow the user to attempt that region again
-until they play a new round and highlight the region box grey."""
+"""02_questions_06_v1 improves quiz flow by disabling regions once answered,
+preventing repeated attempts until the quiz resets, and visually indicates
+locked regions by greying out their buttons."""
 
-# Import tkinter and PIL
+# Import tkinter for GUI, PIL for images, and random for quiz choices
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
 import random
 
 
-# Class to display map and region buttons
+# Class to display NZ map, region buttons, and quiz question logic
 class AotearoaQuiz(object):
     def __init__(self, roots):
         self.root = roots
         self.root.title("Aotearoa Names Quiz")
 
+        # Dictionary mapping regions to their Maori names
         self.regions = {
             "Northland": ["Te Tai Tokerau"],
             "Auckland": ["Tāmaki Makaurau"],
@@ -32,12 +32,13 @@ class AotearoaQuiz(object):
             "Otago": ["Ōtākou"],
             "Southland": ["Murihiku"]}
 
-        self.region_buttons = {}
-        self.current_region = None
-        self.correct_answer = None
-        self.answer_buttons = []
-        self.answered_regions = set()
+        self.region_buttons = {}     # Buttons for each region on the map
+        self.current_region = None   # Region currently being quizzed
+        self.correct_answer = None   # Correct Maori name for current region
+        self.answer_buttons = []     # Multiple choice answer buttons
+        self.answered_regions = set()  # Regions already answered
 
+        # Load New Zealand map image and set window size accordingly
         try:
             self.nz_image = Image.open("Design 2 Trans.png")
             self.nz_photo = ImageTk.PhotoImage(self.nz_image)
@@ -59,45 +60,47 @@ class AotearoaQuiz(object):
         self.correct_answers = 0
         self.incorrect_answers = 0
 
-        # Create a frame for the score counter
+        # Frame to hold score counters at the top
         self.score_frame = tk.Frame(self.root)
         self.score_frame.pack(fill=tk.X)
 
+        # Canvas to display the NZ map image
         self.map_canvas = tk.Canvas(roots, width=self.nz_image.width,
                                     height=self.nz_image.height)
         self.map_canvas.create_image(0, 0, image=self.nz_photo,
                                      anchor=tk.NW)
         self.map_canvas.pack()
 
-        # Frame to hold questions, enter answer and submit answers
+        # Frame for the question text and answer buttons
         self.question_frame = tk.Frame(self.root)
         self.question_frame.pack(pady=10)
 
+        # Label showing the current quiz question
         self.question_label = tk.Label(self.question_frame, text="",
                                        font=("Arial", 16))
         self.question_label.pack()
 
-        # Frame to hold the answer buttons
+        # Frame containing the multiple choice answer buttons
         self.options_frame = tk.Frame(self.question_frame)
         self.options_frame.pack()
 
-        # Label to display correct answers
+        # Label to show number of correct answers
         self.correct_label = tk.Label(self.score_frame,
                                       text=f"Correct: {self.correct_answers}",
                                       font=("Arial", 10))
         self.correct_label.pack(side=tk.LEFT, padx=10, pady=5)
 
-        # Separator
+        # Separator label between correct and incorrect counters
         separator = tk.Label(self.score_frame, text=" | ", font=("Arial", 10))
         separator.pack(side=tk.LEFT)
 
-        # Label to display incorrect answers
+        # Label to show number of incorrect answers
         self.incorrect_label = tk.Label(
             self.score_frame, text=f"Incorrect: {self.incorrect_answers}",
             font=("Arial", 10))
         self.incorrect_label.pack(side=tk.LEFT)
 
-        # Load the logo image
+        # Load and display logo image at bottom-right corner
         try:
             self.logo_image = Image.open(
                 "HenyDice Logo Trans.png")
@@ -109,9 +112,10 @@ class AotearoaQuiz(object):
             messagebox.showwarning("Warning",
                                    "Logo image not found!")
 
+        # Create buttons on map for each region
         self.create_region_buttons_on_map()
 
-    # Function to update the score counter
+    # Update the score labels and show feedback message boxes
     def update_score(self, correct=True):
         if correct:
             self.correct_answers += 1
@@ -130,11 +134,10 @@ class AotearoaQuiz(object):
             self.incorrect_label.config(
                 text=f"Incorrect: {self.incorrect_answers}")
 
-    # Function to put region buttons on the map
+    # Place buttons on map at approximate locations for each region
     def create_region_buttons_on_map(self):
         button_configuration = {"width": 10, "height": 1, "font": ("Arial", 8)}
 
-        # Approximate button positions relative to the image
         self.create_map_button("Northland", 240, 80,
                                **button_configuration)
         self.create_map_button("Auckland", 265, 115,
@@ -164,25 +167,30 @@ class AotearoaQuiz(object):
         self.create_map_button("Southland", 125, 340,
                                **button_configuration)
 
-    # Function to create buttons for different regions
+    # Create and place a single button on the map for a region
     def create_map_button(self, region_name, x, y, **kwargs):
         button = tk.Button(self.root, text=region_name, **kwargs,
                            command=lambda r=region_name:
                            self.show_question(r))
+        # Adjust x position slightly for centering text
         button.place(x=x - kwargs.get("width", 8) * 6, y=y, anchor=tk.CENTER)
         self.region_buttons[region_name] = button
 
+    # Called when an answer button is pressed; checks the selected answer
     def _handle_answer_selection(self, user_answer):
         self.check_answer(user_answer)
 
+    # Show quiz question and multiple choice answers for the selected region
     def show_question(self, region):
         self.current_region = region
         correct_maori_names = self.regions[region]
         self.correct_answer = random.choice(correct_maori_names)
+
         incorrect_options = set()
         all_maori_names = [name for sublist in self.regions.values() for name
                            in sublist]
 
+        # Select 2 unique incorrect options different from the correct answer
         while len(incorrect_options) < 2:
             wrong_answer = random.choice(all_maori_names)
             if wrong_answer not in correct_maori_names:
@@ -194,10 +202,12 @@ class AotearoaQuiz(object):
         question_text = f"What is the Maori name for {region}?"
         self.question_label.config(text=question_text)
 
+        # Clear previous answer buttons
         for button in self.answer_buttons:
             button.destroy()
         self.answer_buttons = []
 
+        # Create buttons for each answer option
         for option in options:
             answer_button = tk.Button(self.options_frame, text=option,
                                       font=("Arial", 12),
@@ -206,9 +216,11 @@ class AotearoaQuiz(object):
             answer_button.pack(pady=5)
             self.answer_buttons.append(answer_button)
 
+        # Disable all region buttons while answering
         for name, button in self.region_buttons.items():
             button.config(state=tk.DISABLED)
 
+    # Check the user's answer, update scores and button states accordingly
     def check_answer(self, user_answer):
         if self.current_region:
             if user_answer == self.correct_answer:
@@ -218,15 +230,18 @@ class AotearoaQuiz(object):
 
             self.question_label.config(text="")
 
+            # Remove answer buttons after answering
             for button in self.answer_buttons:
                 button.destroy()
             self.answer_buttons = []
 
+            # Mark current region as answered and disable its button
             self.answered_regions.add(self.current_region)
             if self.current_region in self.region_buttons:
                 self.region_buttons[self.current_region].config(
                     state=tk.DISABLED, bg="light gray")
 
+            # Enable region buttons for regions not yet answered
             for name, button in self.region_buttons.items():
                 if name not in self.answered_regions:
                     button.config(state=tk.NORMAL)
@@ -235,7 +250,7 @@ class AotearoaQuiz(object):
             self.correct_answer = None
 
 
-# Main Loop
+# Main application loop starts here
 if __name__ == '__main__':
     root = tk.Tk()
     quiz = AotearoaQuiz(root)
